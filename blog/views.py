@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Post
 
@@ -20,7 +20,7 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     fields = ['title', 'content']
 
